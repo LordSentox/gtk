@@ -33,19 +33,6 @@ pub trait ContainerTrait: ::WidgetTrait {
         }
     }
 
-    unsafe fn get_children<T: ::WidgetTrait>(&self) -> Vec<T> {
-        let children = Vec::new();
-
-        let iter = ffi::gtk_container_get_children(GTK_CONTAINER(self.unwrap_widget()));
-        while iter.not_null() {
-            children.push(::FFIWidget::wrap_widget(iter.data));
-
-            iter = iter.next;
-        }
-
-        children
-    }
-
     fn get_border_width(&self) -> u32 {
         unsafe {
             ffi::gtk_container_get_border_width(GTK_CONTAINER(self.unwrap_widget())) as u32
